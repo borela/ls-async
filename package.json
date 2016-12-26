@@ -8,7 +8,7 @@
     "clean": "rimraf \"build/!(.git)\"",
     "build": "run-s build:*",
     "build:clean": "npm run clean",
-    "build:target": "webpack --progress",
+    "build:target": "webpack --progress --display-error-details",
     "dev": "run-s dev:*",
     "dev:clean": "npm run clean",
     "dev:target": "webpack --progress --watch --display-error-details",
