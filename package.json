@@ -1,6 +1,6 @@
 {
   "name": "ls-async",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "List directories asynchronously.",
   "main": "build",
   "scripts": {
@@ -26,7 +26,7 @@
         "latest",
         {
           "es2015": {
-            "modules": false
+            "modules": "commonjs"
           }
         }
       ]
