@@ -42,10 +42,8 @@ function listDirRecursively(fullTargetPath) {
     .then(() => result)
 }
 
-export function ls(fullTargetPath, recursive) {
+module.exports = function(fullTargetPath, recursive) {
   return !recursive
     ? listDir(fullTargetPath)
     : listDirRecursively(fullTargetPath)
 }
-
-export default ls
