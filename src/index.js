@@ -45,5 +45,5 @@ function listDirRecursively(fullTargetPath) {
 export default function(fullTargetPath, recursive) {
   return !recursive
     ? listDir(fullTargetPath)
-    ? listDirRecursively(fullTargetPath)
+    : listDirRecursively(fullTargetPath)
 }

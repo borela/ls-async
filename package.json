@@ -1,6 +1,6 @@
 {
   "name": "ls-async",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "List directories asynchronously.",
   "scripts": {
     "check": "flow check || exit 0",
