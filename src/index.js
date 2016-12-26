@@ -10,8 +10,8 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import fs from 'graceful-fs'
-import Promise from 'bluebird'
+let fs = require('graceful-fs')
+let Promise = require('bluebird')
 
 Promise.promisifyAll(fs)
 
