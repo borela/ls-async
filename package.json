@@ -1,6 +1,6 @@
 {
   "name": "ls-async",
-  "version": "1.0.11",
+  "version": "2.0.0",
   "description": "List directories asynchronously.",
   "main": "build",
   "scripts": {
@@ -12,10 +12,12 @@
     "dev": "run-s dev:*",
     "dev:clean": "npm run clean",
     "dev:target": "babel ./src --out-dir ./build --watch --source-maps",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "test": "mocha tests/unit --compilers js:babel-register"
   },
   "babel": {
     "plugins": [
+      "transform-flow-strip-types",
       "transform-decorators-legacy",
       "transform-class-properties",
       "transform-export-extensions",

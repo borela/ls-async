@@ -9,6 +9,7 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 // License for the specific language governing permissions and limitations under
 // the License.
+// @flow
 
 import fs from 'graceful-fs'
 import path from 'path'
@@ -16,11 +17,12 @@ import Promise from 'bluebird'
 
 Promise.promisifyAll(fs)
 
-function listDir(fullTargetPath) {
-  return fs.readdirAsync(fullTargetPath)
+function list(fullPath:string, ignore:?RegExp) {
+  return fs.readdirAsync(fullPath)
+    .filter(node => !ignore ? true : !ignore.test(node))
     .map(node => ({
-      parent: fullTargetPath,
-      path: path.join(fullTargetPath, node),
+      parent: fullPath,
+      path: path.join(fullPath, node),
       name: node
     }))
     .map(node =>
@@ -29,13 +31,13 @@ function listDir(fullTargetPath) {
     )
 }
 
-function listDirRecursively(fullTargetPath) {
+function listRecursively(fullPath:string, ignore:?RegExp) {
   let result = []
   return Promise.all(
-      listDir(fullTargetPath)
+      list(fullPath, ignore)
         .each(node => result.push(node))
         .filter(node => node.stats.isDirectory())
-        .map(node => listDirRecursively(node.path))
+        .map(node => listRecursively(node.path, ignore))
     )
     .each(subDirContents => {
       result = result.concat(subDirContents)
@@ -43,8 +45,12 @@ function listDirRecursively(fullTargetPath) {
     .then(() => result)
 }
 
-export default function(fullTargetPath, recursive) {
-  return !recursive
-    ? listDir(fullTargetPath)
-    : listDirRecursively(fullTargetPath)
+export type Options = {
+  recursive:?boolean,
+  ignore:?RegExp
 }
+
+export default (fullPath:string, options:?Options={}) =>
+  !options.recursive
+    ? list(fullPath, options.ignore)
+    : listRecursively(fullPath, options.ignore)

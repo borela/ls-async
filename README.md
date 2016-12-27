@@ -13,7 +13,13 @@ npm install ls-async
 ```Javascript
 import ls from 'ls-async'
 
-ls('path', recursive)
+let options = {
+  recursive: true,
+  // Useful to prevent directories contents from being listed.
+  ignore: /pattern/
+}
+
+ls('path', options)
 .map(node => {
   // Node = {
   //   parent:string,
