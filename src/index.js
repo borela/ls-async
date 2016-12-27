@@ -19,12 +19,12 @@ Promise.promisifyAll(fs)
 
 function list(fullPath:string, ignore:?RegExp) {
   return fs.readdirAsync(fullPath)
-    .filter(node => !ignore ? true : !ignore.test(node))
     .map(node => ({
       parent: fullPath,
       path: path.join(fullPath, node),
       name: node
     }))
+    .filter(node => !ignore ? true : !ignore.test(node.path))
     .map(node =>
       fs.statAsync(node.path)
         .then(stats => ({...node, stats}))

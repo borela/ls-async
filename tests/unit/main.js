@@ -26,7 +26,7 @@ describe('Directory listing function', () => {
   )
 
   it('can ignore nodes using regexes', () =>
-    ls(ASSETS, {ignore:/^a$/})
+    ls(ASSETS, {ignore:/[\\/]a$/})
       .then(list => {
         assert.equal(list.length, 5)
       })
@@ -41,7 +41,7 @@ describe('Directory listing function', () => {
 
   it('doesn’t list an ignored directory’s contents', () =>
     ls(ASSETS, {
-      ignore: /^a$/,
+      ignore: /[\\/]a$/,
       recursive: true
     })
       .then(list => {
