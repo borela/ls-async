@@ -1,16 +1,15 @@
 {
   "name": "ls-async",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "List directories asynchronously.",
+  "license": "Apache-2.0",
   "main": "build",
   "scripts": {
     "check": "flow check || exit 0",
     "clean": "rimraf \"build/!(.git)\"",
-    "build": "run-s build:*",
-    "build:clean": "npm run clean",
+    "build": "npm run clean && run-p build:*",
     "build:target": "babel ./src --out-dir ./build --source-maps",
-    "dev": "run-s dev:*",
-    "dev:clean": "npm run clean",
+    "dev": "npm run clean && run-p dev:*",
     "dev:target": "babel ./src --out-dir ./build --watch --source-maps",
     "start": "npm run dev",
     "test": "mocha tests/unit --compilers js:babel-register"
@@ -38,26 +37,24 @@
     "type": "git",
     "url": "git+https://github.com/borela/ls-async.git"
   },
-  "keywords": [
-    "list",
-    "directory"
-  ],
-  "author": [
-    {
-      "name": "Alexandre Borela",
-      "email": "alexandre@borela.tech",
-      "url": "http://www.borela.tech"
-    }
-  ],
-  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/borela/ls-async/issues"
   },
   "homepage": "https://github.com/borela/ls-async#readme",
+  "keywords": [
+    "list",
+    "directory"
+  ],
+  "author": {
+    "name": "Alexandre Borela",
+    "email": "alexandre@borela.tech",
+    "url": "http://www.borela.tech"
+  },
   "dependencies": {
-    "ctrine-preset-node": "^1.0.0"
+    "bluebird": "^3.4.7",
+    "graceful-fs": "^4.1.11"
   },
   "devDependencies": {
-    "ctrine-preset-node-dev": "^1.0.0"
+    "ctrine-dev-preset": "^1.0.0"
   }
 }
