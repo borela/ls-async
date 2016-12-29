@@ -33,12 +33,10 @@ function list(fullPath:string, ignore:?RegExp) {
 
 function listRecursively(fullPath:string, ignore:?RegExp) {
   let result = []
-  return Promise.all(
-      list(fullPath, ignore)
-        .each(node => result.push(node))
-        .filter(node => node.stats.isDirectory())
-        .map(node => listRecursively(node.path, ignore))
-    )
+  return list(fullPath, ignore)
+    .each(node => result.push(node))
+    .filter(node => node.stats.isDirectory())
+    .map(node => listRecursively(node.path, ignore))
     .each(subDirContents => {
       result = result.concat(subDirContents)
     })
