@@ -8,9 +8,9 @@
     "check": "flow check || exit 0",
     "clean": "rimraf \"build/!(.git)\"",
     "build": "npm run clean && run-p build:*",
-    "build:target": "babel ./src --out-dir ./build --source-maps",
+    "build:target": "babel src --out-dir build --source-maps",
     "dev": "npm run clean && run-p dev:*",
-    "dev:target": "babel ./src --out-dir ./build --watch --source-maps",
+    "dev:target": "babel src --out-dir build --watch --source-maps",
     "start": "npm run dev",
     "test": "mocha tests/unit --compilers js:babel-register"
   },
