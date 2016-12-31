@@ -17,26 +17,25 @@ import Promise from 'bluebird'
 
 Promise.promisifyAll(fs)
 
-function list(fullPath:string, ignore:?RegExp) {
+function list(fullPath:string) {
   return fs.readdirAsync(fullPath)
     .map(node => ({
       parent: fullPath,
       path: path.join(fullPath, node),
       name: node
     }))
-    .filter(node => !ignore ? true : !ignore.test(node.path))
     .map(node =>
       fs.statAsync(node.path)
         .then(stats => ({...node, stats}))
     )
 }
 
-function listRecursively(fullPath:string, ignore:?RegExp) {
+function listRecursively(fullPath:string) {
   let result = []
-  return list(fullPath, ignore)
+  return list(fullPath)
     .each(node => result.push(node))
     .filter(node => node.stats.isDirectory())
-    .map(node => listRecursively(node.path, ignore))
+    .map(node => listRecursively(node.path))
     .each(subDirContents => {
       result = result.concat(subDirContents)
     })
@@ -45,10 +44,14 @@ function listRecursively(fullPath:string, ignore:?RegExp) {
 
 export type Options = {
   recursive:?boolean,
-  ignore:?RegExp
+  ignore:?RegExp,
+  ignoreDirs:?boolean,
+  ignoreFiles:?boolean
 }
-
-export default (fullPath:string, options:?Options={}) =>
-  !options.recursive
-    ? list(fullPath, options.ignore)
-    : listRecursively(fullPath, options.ignore)
+export default (fullPath:string, {recursive, ignore, ignoreFiles, ignoreDirs}:?Options={}) =>
+  (!recursive
+    ? list(fullPath)
+    : listRecursively(fullPath))
+  .filter(node => !ignoreDirs ? true : !node.isDirectory())
+  .filter(node => !ignoreFiles ? true : !node.isFile())
+  .filter(node => !ignore ? true : !ignore.test(node.path))

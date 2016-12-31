@@ -15,8 +15,9 @@ import ls from 'ls-async'
 
 let options = {
   recursive: true,
-  // Useful to prevent directories contents from being listed.
-  ignore: /pattern/
+  ignore: /pattern/,
+  ignoreDirs: false,
+  ignoreFiles: false
 }
 
 ls('path', options)

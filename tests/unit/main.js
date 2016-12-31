@@ -39,13 +39,13 @@ describe('Directory listing function', () => {
       })
   )
 
-  it('doesn’t list an ignored directory’s contents', () =>
+  it('lists an ignored directory’s contents', () =>
     ls(ASSETS, {
       ignore: /[\\/]a$/,
       recursive: true
     })
       .then(list => {
-        assert.equal(list.length, 11)
+        assert.equal(list.length, 14)
       })
   )
 })
