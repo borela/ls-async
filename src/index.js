@@ -43,15 +43,16 @@ function listRecursively(fullPath:string) {
 }
 
 export type Options = {
-  recursive:?boolean,
-  ignore:?RegExp,
-  ignoreDirs:?boolean,
-  ignoreFiles:?boolean
+  recursive?:boolean,
+  ignore?:RegExp,
+  ignoreDirs?:boolean,
+  ignoreFiles?:boolean
 }
-export default (fullPath:string, {recursive, ignore, ignoreFiles, ignoreDirs}:?Options={}) =>
-  (!recursive
+export default (fullPath:string, {recursive, ignore, ignoreFiles, ignoreDirs}:Options={}) => (
+    !recursive
     ? list(fullPath)
-    : listRecursively(fullPath))
+    : listRecursively(fullPath)
+  )
   .filter(node => !ignoreDirs ? true : !node.isDirectory())
   .filter(node => !ignoreFiles ? true : !node.isFile())
   .filter(node => !ignore ? true : !ignore.test(node.path))
