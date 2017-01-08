@@ -48,11 +48,20 @@ export type Options = {
   ignoreDirs?:boolean,
   ignoreFiles?:boolean
 }
-export default (fullPath:string, {recursive, ignore, ignoreFiles, ignoreDirs}:Options={}) => (
-    !recursive
+
+export default (fullPath:string, {recursive, ignore, ignoreFiles, ignoreDirs}:Options={}) => {
+  let result = !recursive
     ? list(fullPath)
     : listRecursively(fullPath)
-  )
-  .filter(node => !ignoreDirs ? true : !node.isDirectory())
-  .filter(node => !ignoreFiles ? true : !node.isFile())
-  .filter(node => !ignore ? true : !ignore.test(node.path))
+
+  if (ignoreDirs)
+    result = result.filter(node => !node.isDirectory())
+
+  if (ignoreFiles)
+    result = result.filter(node => !node.isFile())
+
+  if (ignore)
+    result = result.filter(node => !ignore.test(node.path))
+
+  return result
+}
