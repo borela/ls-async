@@ -55,6 +55,6 @@
     "graceful-fs": "^4.1.11"
   },
   "devDependencies": {
-    "ctrine-dev-preset": "^1.0.0"
+    "ctrine-dev-preset": "^1.3.0"
   }
 }
