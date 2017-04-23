@@ -20,13 +20,13 @@ Promise.promisifyAll(Fs)
 function list(fullPath:string) {
   return Fs.readdirAsync(fullPath)
     .map(node => ({
+      name: node,
       parent: fullPath,
-      path: Path.join(fullPath, node),
-      name: node
+      path: Path.join(fullPath, node)
     }))
     .map(node =>
       Fs.statAsync(node.path)
-        .then(stats => ({...node, stats}))
+        .then(stats => ({ ...node, stats }))
     )
 }
 
@@ -49,19 +49,15 @@ export type Options = {
   ignoreFiles?:boolean
 }
 
-export default (fullPath:string, {recursive, ignore, ignoreFiles, ignoreDirs}:Options={}) => {
+export default (fullPath:string, { recursive, ignore, ignoreFiles, ignoreDirs }:Options={}) => {
   let result = !recursive
     ? list(fullPath)
     : listRecursively(fullPath)
-
   if (ignoreDirs)
     result = result.filter(node => !node.isDirectory())
-
   if (ignoreFiles)
     result = result.filter(node => !node.isFile())
-
   if (ignore)
     result = result.filter(node => !ignore.test(node.path))
-
   return result
 }
