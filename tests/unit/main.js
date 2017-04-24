@@ -26,14 +26,14 @@ describe('Directory listing function', () => {
   )
 
   it('can ignore nodes using regexes', () =>
-    ls(ASSETS, {ignore:/[\\/]a$/})
+    ls(ASSETS, { ignore: /[\\/]a$/ })
       .then(list => {
         assert.equal(list.length, 5)
       })
   )
 
   it('lists a directory’s contents recursively', () =>
-    ls(ASSETS, {recursive:true})
+    ls(ASSETS, { recursive: true })
       .then(list => {
         assert.equal(list.length, 15)
       })
