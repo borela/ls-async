@@ -10,42 +10,44 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import assert from 'assert'
-import path from 'path'
-
 import ls from '../../src'
+import Path from 'path'
 
-const ASSETS = path.resolve(__dirname, '../assets')
+const ASSETS = Path.resolve(__dirname, '../assets')
 
-describe('Directory listing function', () => {
-  it('lists a directory’s contents', () =>
-    ls(ASSETS)
+describe('ls()', () => {
+  it('lists a directory’s contents', () => {
+    expect.assertions(1)
+    return ls(ASSETS)
       .then(list => {
-        assert.equal(list.length, 6)
+        expect(list.length).toBe(6)
       })
-  )
+  })
 
-  it('can ignore nodes using regexes', () =>
-    ls(ASSETS, { ignore: /[\\/]a$/ })
+  it('can ignore nodes using regexes', () => {
+    expect.assertions(1)
+    return ls(ASSETS, { ignore: /[\\/]a$/ })
       .then(list => {
-        assert.equal(list.length, 5)
+        expect(list.length).toBe(5)
       })
-  )
+  })
 
-  it('lists a directory’s contents recursively', () =>
-    ls(ASSETS, { recursive: true })
+  it('lists a directory’s contents recursively', () => {
+    expect.assertions(1)
+    return ls(ASSETS, { recursive: true })
       .then(list => {
-        assert.equal(list.length, 15)
+        expect(list.length).toBe(15)
       })
-  )
+  })
 
-  it('lists an ignored directory’s contents', () =>
-    ls(ASSETS, {
+  it('lists an ignored directory’s contents', () => {
+    expect.assertions(1)
+    return ls(ASSETS, {
       ignore: /[\\/]a$/,
       recursive: true
     })
       .then(list => {
-        assert.equal(list.length, 14)
+        expect(list.length).toBe(14)
       })
-  )
+  })
 })
