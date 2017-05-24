@@ -11,21 +11,22 @@
 // the License.
 // @flow
 
-import Fs from 'graceful-fs'
 import Path from 'path'
-import Promise from 'bluebird'
+import { promisify } from 'bluebird'
+import { readdir, stat } from 'graceful-fs'
 
-Promise.promisifyAll(Fs)
+let readdirAsync = promisify(readdir)
+let statAsync = promisify(stat)
 
 function list(fullPath:string) {
-  return Fs.readdirAsync(fullPath)
+  return readdirAsync(fullPath)
     .map(node => ({
       name: node,
       parent: fullPath,
       path: Path.join(fullPath, node)
     }))
     .map(node =>
-      Fs.statAsync(node.path)
+      statAsync(node.path)
         .then(stats => ({ ...node, stats }))
     )
 }
