@@ -10,10 +10,10 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import ls from '../../src'
-import Path from 'path'
+import ls from '..'
+import { resolve } from 'path'
 
-const ASSETS = Path.resolve(__dirname, '../assets')
+const ASSETS = resolve(__dirname, './assets')
 
 describe('ls()', () => {
   it('lists a directory’s contents', () => {
