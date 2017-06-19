@@ -1,6 +1,6 @@
 {
   "name": "ls-async",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "List directories asynchronously.",
   "license": "Apache-2.0",
   "main": "build",
