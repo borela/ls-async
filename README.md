@@ -1,6 +1,4 @@
-# LS Async
-
-List directory's contents asynchronously using Bluebird promises.
+List directory’s contents asynchronously using Bluebird promises.
 
 ## Installation
 
