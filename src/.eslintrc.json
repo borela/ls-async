@@ -1,0 +1,4 @@
+{
+  "extends": "@ctrine/node-lib",
+  "parser": "Babel-ESLint"
+}

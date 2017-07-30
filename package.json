@@ -33,7 +33,7 @@
     "graceful-fs": "^4.1.11"
   },
   "devDependencies": {
-    "babel-preset-ctrine-lib": "^1.0.0",
-    "ctrine-dev-preset": "^4.0.0"
+    "@ctrine/babel-preset-node-lib": "^3.0.0",
+    "@ctrine/toolbox": "^6.0.0"
   }
 }
